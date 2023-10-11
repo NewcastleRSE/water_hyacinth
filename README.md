@@ -7,8 +7,7 @@ and outputting to a shape file. This shapefile would then be uploaded to a webma
 with exisiting GeoJSON files to create an overlay which can be switched on or off on the webmap. 
 
 ### Project Team
-Dr L. Ipsum, Newcastle University  ([lorem.ipsum@newcastle.ac.uk](mailto:lorem.ipsum@newcastle.ac.uk))  
-Professor D. Sit Amet, XY University  ([d.sit.amet@newcastle.ac.uk](mailto:d.sit.amet@example.com))  
+Deepayan Bhowmik <Deepayan.Bhowmik@newcastle.ac.uk>  
 
 ### RSE Contact
 Ben Daly  
@@ -24,19 +23,18 @@ JavaScript
 ## Getting Started
 
 ### Prerequisites
-This app runs on AWS and can be accessed via SSH into the AWS box as follows:
+This app runs on a Ubuntu instance of AWS and can be accessed via SSH into the AWS box as follows:
+It requires download of the key UBUNTU.pem which can be found in the AWS console
+Once downloaded, run the following command from the same directory:
 
-### Installation
+>  ssh -i "ubuntu.pem" ubuntu@ec2-16-16-213-96.eu-north-1.compute.amazonaws.com
 
-How to build or install the applcation.
+### Folders
+Once logged into the AWS box, you will be in the home directory (/home/ubuntu)
+To access the app install folders navigate to the following directory:
 
-### Running Locally
+> cd /var/www/html/poly
 
-How to run the application on your local system.
-
-### Running Tests
-
-How to run tests on your local system.
 
 ## Deployment
 

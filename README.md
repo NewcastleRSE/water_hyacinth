@@ -42,8 +42,11 @@ This contains the following 3 files:
 
 ## Coverting Shapefile to GeoJSON
 Shapefiles are converted to GeoJSON using the shptojson.py script (above). Shapefiles are added to the following folder:
+
 > /home/ubuntu/json/IND
+
 Once this is complete then the python script can be run from the following location:
+
 > python /home/ubuntu/py/shptojson.py
 This will then add 
 

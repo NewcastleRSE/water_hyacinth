@@ -48,6 +48,7 @@ Shapefiles are converted to GeoJSON using the shptojson.py script (above). Shape
 Once this is complete then the python script can be run from the following location:
 
 > python /home/ubuntu/py/shptojson.py
+
 This will then add 
 
 ### Local

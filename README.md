@@ -35,8 +35,21 @@ To access the app install folders navigate to the following directory:
 
 > cd /var/www/html/poly
 
+This contains the following 3 files:
+* index.html (index page)
+* style.css (css)
+* script.js (Leaflet JS)
 
-## Deployment
+## Coverting Shapefile to GeoJSON Pipeline...
+Shapefiles are converted to GeoJSON using the shptojson.py script (above). Shapefiles are added to the following folder:
+
+> /home/ubuntu/json/IND
+
+Once this is complete then the python script can be run from the following location:
+
+> python /home/ubuntu/py/shptojson.py
+
+This will then add 
 
 ### Local
 

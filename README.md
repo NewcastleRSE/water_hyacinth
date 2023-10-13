@@ -40,7 +40,7 @@ This contains the following 3 files:
 * style.css (css)
 * script.js (Leaflet JS)
 
-## Coverting Shapefile to GeoJSON
+## Coverting Shapefile to GeoJSON Pipeline...
 Shapefiles are converted to GeoJSON using the shptojson.py script (above). Shapefiles are added to the following folder:
 
 > /home/ubuntu/json/IND

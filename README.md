@@ -43,15 +43,28 @@ This contains the following 3 files:
 ## Coverting Shapefile to GeoJSON Pipeline...
 
 There is a staging process for converting shapefiles to a combined GeoJSON file for display on the Leaflet map. This is done within a bash script called merge.sh
+
+===================================================<br>
+#!/bin/sh
+
+rm -rf /home/ubuntu/py/json/*.json<br>
+python3 shptojson.py<br>
+geojson-merge json/*.json > json/mergebig.json<br>
+cp json/mergebig.json /var/www/html/poly/json<br>
+
 This is as follows:
 
-* Step 1 rm -rf /home/ubuntu/py/json/*.json (this removes the exisiting json files previosly converted from the folder)
+* rm -rf /home/ubuntu/py/json/*.json
+  (this removes the exisiting json files previosly converted from the folder)
 
-* Step 2 python3 shptojson.py (this is script that converts the shapefiles to json files and saves them in /home/ubuntu/py/json
+* python3 shptojson.py
+  (this is script that converts the shapefiles to json files and saves them in /home/ubuntu/py/json
 
-* Step 3 geojson-merge json/*.json > json/mergebig.json (this merges the created converted json files into 1 geojson file for overlay on leaflet map)
+* geojson-merge json/*.json > json/mergebig.json
+  (this merges the created converted json files into 1 geojson file for overlay on leaflet map)
 
-* Step 4 cp json/mergebig.json /var/www/html/poly/json (this copies the combined geojson file into the web folder ready for access via the web server)
+* cp json/mergebig.json /var/www/html/poly/json
+  (this copies the combined geojson file into the web folder ready for access via the web server)
 
 
 

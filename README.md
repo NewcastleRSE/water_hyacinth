@@ -44,6 +44,7 @@ This contains the following 3 files:
 
 There is a staging process for converting shapefiles to a combined GeoJSON file for display on the Leaflet map. This is done within a bash script called merge.sh
 This is as follows:
+
 * Step 1 rm -rf /home/ubuntu/py/json/*.json (this removes the exisiting json files previosly converted from the folder)
 
 * Step 2 python3 shptojson.py (this is script that converts the shapefiles to json files and saves them in /home/ubuntu/py/json

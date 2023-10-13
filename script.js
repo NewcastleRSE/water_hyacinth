@@ -1,3 +1,5 @@
+//Initiate Map
+
 var map = L.map('map', {
   'center': [23.51, 80.33],
   'zoom': 5,
@@ -16,6 +18,7 @@ var map = L.map('map', {
 //L.Control.geocoder().addTo(map);
 
 
+//Initiate geocoder and setup polygon select for search area found
 var geocoder = L.Control.geocoder({
         position:'topleft',
 	defaultMarkGeocode: false
@@ -32,6 +35,7 @@ var geocoder = L.Control.geocoder({
   })
   .addTo(map);
 
+//Add geojson control layers for viewing on map
 var controlLayers = L.control.layers().addTo(map);
 
 var file = 'json/mergebig.json';

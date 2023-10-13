@@ -43,6 +43,7 @@ This contains the following 3 files:
 ## Coverting Shapefile to GeoJSON Pipeline...
 
 There is a staging process for converting shapefiles to a combined GeoJSON file for display on the Leaflet map. This is done within a bash script called merge.sh
+Firstly the shapefiles should be downloaded into the directory /home/ubuntu/py/shp
 
 ===================================================<br>
 #!/bin/sh

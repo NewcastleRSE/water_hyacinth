@@ -51,6 +51,7 @@ Firstly the shapefiles should be downloaded into the directory /home/ubuntu/py/s
 rm -rf /home/ubuntu/py/json/*.json<br>
 python3 shptojson.py<br>
 geojson-merge json/*.json > json/mergebig.json<br>
+mapshaper json/mergebig0.json -simplify dp 10% keep-shapes -o format=geojson json/mergebig.json
 cp json/mergebig.json /var/www/html/poly/json<br>
 
 This is as follows:
@@ -61,8 +62,11 @@ This is as follows:
 * python3 shptojson.py
   (this is script that converts the shapefiles to json files and saves them in /home/ubuntu/py/json
 
-* geojson-merge json/*.json > json/mergebig.json
+* geojson-merge json/*.json > json/mergebig0.json
   (this merges the created converted json files into 1 geojson file for overlay on leaflet map)
+
+* mapshaper json/mergebig0.json -simplify dp 10% keep-shapes -o format=geojson json/mergebig.json
+  (this refactors the geojson to a much smaller (and more responsive) size)
 
 * cp json/mergebig.json /var/www/html/poly/json
   (this copies the combined geojson file into the web folder ready for access via the web server)

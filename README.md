@@ -45,14 +45,15 @@ This contains the following 3 files:
 There is a staging process for converting shapefiles to a combined GeoJSON file for display on the Leaflet map. This is done within a bash script called merge.sh
 Firstly the shapefiles should be downloaded into the directory /home/ubuntu/py/shp
 
-===================================================<br>
+```
+===================================================
 #!/bin/sh
 
-rm -rf /home/ubuntu/py/json/*.json<br>
-python3 shptojson.py<br>
-geojson-merge json/*.json > json/mergebig.json<br>
+rm -rf /home/ubuntu/py/json/*.json
+python3 shptojson.py
+geojson-merge json/*.json > json/mergebig.json
 mapshaper json/mergebig0.json -simplify dp 10% keep-shapes -o format=geojson json/mergebig.json
-cp json/mergebig.json /var/www/html/poly/json<br>
+cp json/mergebig.json /var/www/html/poly/json
 
 This is as follows:
 
@@ -70,12 +71,49 @@ This is as follows:
 
 * cp json/mergebig.json /var/www/html/poly/json
   (this copies the combined geojson file into the web folder ready for access via the web server)
+```
 
 
+### SENTINEL2 IMAGE DATA
 
-### Local
+Sentinel 2 data can be downloaded using a API Script such as the following 
+```
+# connect to the API
+from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
+from datetime import date
 
-Deploying to a production style setup but on the local system. Examples of this would include `venv`, `anaconda`, `Docker` or `minikube`. 
+api = SentinelAPI('user', 'password', 'https://apihub.copernicus.eu/apihub')
+
+# download single scene by known product id
+api.download(<product_id>)
+
+# search by polygon, time, and SciHub query keywords
+footprint = geojson_to_wkt(read_geojson('/path/to/map.geojson'))
+products = api.query(footprint,
+                     date=('20151219', date(2015, 12, 29)),
+                     platformname='Sentinel-2',
+                     cloudcoverpercentage=(0, 30))
+
+# download all results from the search
+api.download_all(products)
+
+# convert to Pandas DataFrame
+products_df = api.to_dataframe(products)
+
+# GeoJSON FeatureCollection containing footprints and metadata of the scenes
+api.to_geojson(products)
+
+# GeoPandas GeoDataFrame with the metadata of the scenes and the footprints as geometries
+api.to_geodataframe(products)
+
+# Get basic information about the product: its title, file size, MD5 sum, date, footprint and
+# its download url
+api.get_product_odata(<product_id>)
+
+# Get the product's full metadata available on the server
+api.get_product_odata(<product_id>, full=True)
+
+```
 
 ### Production
 

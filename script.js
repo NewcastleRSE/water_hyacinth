@@ -10,6 +10,15 @@ var map = L.map('map', {
   ]
 });
 
+var home = {
+  lat: 23.51,
+  lng: 80.33,
+  zoom: 5
+};
+
+L.easyButton('<img src="512.png" style="width:16px">',function(btn,map){
+  map.setView([home.lat, home.lng], home.zoom);
+},'Zoom To Home').addTo(map);
 
 //L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 //  attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -23,7 +32,7 @@ var geocoder = L.Control.geocoder({
         position:'topleft',
 	defaultMarkGeocode: false
 })
-  .on('markgeocode', function(e) {
+   .on('markgeocode', (e) => {	  
     var bbox = e.geocode.bbox;
     var poly = L.polygon([
       bbox.getSouthEast(),
@@ -67,6 +76,23 @@ $.getJSON(file, function (geojson) {
 });
 
 
+//Add Basemaps
+var osm = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"),
+    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']
+});
+
+var baseMaps = {
+    "OpenStreetMap": osm,
+    "Satellite": googleSat
+};
+
+var overlays =  {//add any overlays here
+
+    };
+
+L.control.layers(baseMaps,overlays, {position: 'bottomleft'}).addTo(map);
 
   //-- Searchbox
 //  var markersLayer = new L.LayerGroup();  //layer contain searched elements

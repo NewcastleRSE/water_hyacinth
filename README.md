@@ -114,7 +114,7 @@ api.get_product_odata(<product_id>)
 api.get_product_odata(<product_id>, full=True)
 
 ```
-#SENTINEL2 BANDS
+## SENTINEL2 BANDS
 ```
 Band   Category	  Spatial Resolution	Revisit
 Visible (4)	      10 m	              5 days

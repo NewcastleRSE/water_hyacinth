@@ -114,6 +114,28 @@ api.get_product_odata(<product_id>)
 api.get_product_odata(<product_id>, full=True)
 
 ```
+## SENTINEL2 BANDS
+```
+Band   Category	  Spatial Resolution	Revisit
+Visible (4)	      10 m	              5 days
+Near-Infrared (6)	20 m	              5 days
+Short-wave IR (3)	60 m	              5 days
+
+Name	Resolution	Description
+B01	60 m	Coastal aerosol, 442.7 nm (S2A), 442.2 nm (S2B)
+B02	10 m	Blue, 492.4 nm (S2A), 492.1 nm (S2B)
+B03	10 m	Green, 559.8 nm (S2A), 559.0 nm (S2B)
+B04	10 m	Red, 664.6 nm (S2A), 664.9 nm (S2B)
+B05	20 m	Vegetation red edge, 704.1 nm (S2A), 703.8 nm (S2B)
+B06	20 m	Vegetation red edge, 740.5 nm (S2A), 739.1 nm (S2B)
+B07	10 m	Vegetation red edge, 782.8 nm (S2A), 779.7 nm (S2B)
+B08	10 m	NIR, 832.8 nm (S2A), 832.9 nm (S2B)
+B8A	20 m	Narrow NIR, 864.7 nm (S2A), 864.0 nm (S2B)
+B09	60 m	Water vapour, 945.1 nm (S2A), 943.2 nm (S2B)
+B10	60 m	SWIR – Cirrus, 1373.5 nm (S2A), 1376.9 nm (S2B)
+B11	20 m	SWIR, 1613.7 nm (S2A), 442.2 nm (S2B)
+B12	20 m	SWIR, 2202.4 nm (S2A), 442.2 nm (S2B)
+```
 
 ### Production
 

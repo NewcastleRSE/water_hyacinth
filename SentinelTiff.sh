@@ -10,6 +10,7 @@ sleep 3
 
 echo ""
 echo "Downloading Sentinel2 data..."
+echo ""
 python3 sentinel.py
 echo "Done!"
 echo ""
@@ -51,7 +52,8 @@ cp TCI.tif /var/www/html/temp
 echo "done!"
 echo ""
 
-#6. Clean up jp2, zip & SAFE files
+#6. Clean up files
 rm -rf *.jp2
 rm -rf *.SAFE
 rm -rf *.zip
+#rm -rf TCI.*

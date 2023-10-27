@@ -5,28 +5,25 @@ import logging
 
 
 user = 'brd102' 
-password = '*******' 
+password = '***' 
 
 api = SentinelAPI(user,password,'https://apihub.copernicus.eu/apihub')
-dir_name = '/home/ubuntu/py/sentinel/temp/zip'
-ZIP_NAME = '/home/ubuntu/py/sentinel/temp/zip'
-jp2_directory = '/home/ubuntu/py/sentinel/r10'
+dir_name = '.'
 extension = ".zip"
 
 # search by polygon, time, and SciHub query keywords
-polygon = r'/home/ubuntu/py/json/park.json'
-aoi = 'POINT (41.9 12.5)'
+polygon = r'park.json'
+aoi = 'POINT (54.98 1.62)'
+
 footprint = geojson_to_wkt(read_geojson(polygon))
 
-products = api.query(footprint,
-                     date=('NOW-110HOURS', 'NOW'),                     
+products = api.query(aoi,
+                     date=('NOW-100HOURS', 'NOW'),                     
                      platformname='Sentinel-2',
                      processinglevel = 'Level-2A',
-                     cloudcoverpercentage=(0, 30))
+                     cloudcoverpercentage=(0, 20))
 
 #Define the path to your AOI - Must be a Geojson shapefile
-#Define the products you need - Here you will be looking for Ground Range detected products, with a Descending orbit direction from 01/05/2019 to 01/06/2019 
-
 
 #products = api.query(aoi,
 #                    # date = ('20180401','20180410'),
@@ -58,19 +55,17 @@ logger.addHandler(h)
 # convert to Pandas DataFrame
 products_df = api.to_dataframe(products)
 
-# sort and limit to first 5 sorted products
+# sort and limit to first sorted products
 products_df_sorted = products_df.sort_values(['cloudcoverpercentage', 'ingestiondate'], ascending=[True, True])
-products_df_sorted = products_df_sorted.head(5)
+products_df_sorted = products_df_sorted.head(1)
 
 # download sorted and reduced products
 api.download_all(products_df_sorted.index)
 
 #sys.exit()
 
-#os.chdir(dir_name) # change directory from working dir to dir with files
-exclude_directories = set({'r10','R60m','R20m','QI_DATA','AUX_DATA'})    #directory (only names) want to exclude
-extensions = ('.jp2')
-print ("Unzipping downloaded files into folder and deleting zip files afterwards...")
+print()
+print ("Unzipping downloaded files into folders...")
 
 for item in os.listdir(dir_name): # loop through items in dir
     if item.endswith(extension): # check for zip" extension
@@ -80,28 +75,12 @@ for item in os.listdir(dir_name): # loop through items in dir
         zip_ref.close() # close file
 #        os.remove(file_name) # delete zipped file
 
-print ("All files unzipped and zip files removed!")
+print ("All files unzipped!")
 print ()
 sys.exit()
-print ("Copying jp2 files to r10 folder...")
-
-for root, dirs, files in os.walk(dir_name):
-    dirs[:] = [d for d in dirs if d not in exclude_directories] # exclude directory if in exclude list 
-
-    for file in files:
-        ext = os.path.splitext(file)[-1].lower()
-        if ext in extensions:
-            path_file = os.path.join(root,file)
-            print (path_file)
-            shutil.copy2(path_file,jp2_directory)
-
-print ("All jp2 files copied!")
-
 
 # convert to Pandas DataFrame
 #products_df = api.to_dataframe(products)
-
-
 
 # sort and limit to first 5 sorted products
 #products_df_sorted = products_df.sort_values(['cloudcoverpercentage', 'ingestiondate'], ascending=[True, True])

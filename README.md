@@ -208,7 +208,12 @@ cd /mnt/GetData
 ls
 SentinelTiff.sh  corbettNP.json  file.py  park.json  sentinel.py
 ```
-
+## Mount drive on reboot
+Enter the following command when rebooting drive to mount /mnt:
+```
+>sudo mount -t xfs -o nouuid /dev/nvme1n1 /mnt
+```
+I will try to set this up in fstab so that it mounts on reboot.
 
 ### Production
 

@@ -252,9 +252,10 @@ B11	20 m	SWIR, 1613.7 nm (S2A), 442.2 nm (S2B)
 B12	20 m	SWIR, 2202.4 nm (S2A), 442.2 nm (S2B)
 ```
 
-## SENTINEL DOWNLOAD/CONVERSION BASH SCRIPT
+## SENTINEL DOWNLOAD/CONVERSION BASH SCRIPT - UPDATED FOR NEW PYTHON SCRIPT
 ```
 #!/bin/sh
+set -e
 
 ## BASH SCRIPT TO DOWNLOAD SENTINEL2 IMAGERY AND PROCESS
 ## RGB SPECTRAL BANDS INTO GEOTIFF OUTPUT
@@ -264,10 +265,7 @@ sleep 3
 
 #1. Download Sentinel2 Image File
 
-echo ""
-echo "Downloading Sentinel2 data..."
-echo ""
-python3 sentinel.py
+python3 corp.py
 echo "Done!"
 echo ""
 
@@ -287,7 +285,6 @@ echo "Done!"
 echo ""
 
 #4. Convert to uncompressed GeoTiff
-
 #echo "Converting to uncompressed GeoTiff"
 #sleep 3
 #gdal_translate -ot Byte -co TILED=YES -scale 0 4096 0 255 TCI.vrt TCI.tif
@@ -303,16 +300,29 @@ echo ""
 
 #5. Move tif file to web directory
 sleep 3
-echo "copy tif to web directory"
+echo "timestamp tiff and copy to tiff folder" 
+echo "copy tif to web folder"
 cp TCI.tif /var/www/html/temp
+echo "Done!"
+echo "timestamp tif and archive to folder"
+cp TCI.tif tiffs/$(date -d "today" +"%Y%m%d%H%M").tif
+#echo "copy tif to web directory"
+#cp tiffs/$(date -d "today" +"%Y%m%d%H%M").tif /var/www/html/temp
 echo "done!"
-echo ""
+
+#5. Move tif file to web directory
+#sleep 3
+#echo "copy tif to web directory"
+#cp TCI.tif /var/www/html/temp
+#echo "done!"
+#echo "http://ec2-51-20-68-120.eu-north-1.compute.amazonaws.com/temp/TCI.tif"
+#echo ""
 
 #6. Clean up files
 rm -rf *.jp2
 rm -rf *.SAFE
 rm -rf *.zip
-#rm -rf TCI.*
+rm -rf TCI.*
 ```
 ## DIRECTORY LOCATIONS (Sentinel data download files)
 

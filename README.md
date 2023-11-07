@@ -74,9 +74,9 @@ This is as follows:
 ```
 
 
-### SENTINEL2 IMAGE DATA
+### SENTINEL2 IMAGE DATA --> OLD METHOD
 
-Sentinel 2 data can be downloaded using a API Script such as the following 
+Sentinel 2 data can be downloaded using a API Script such as the following (NOTE THIS IS NO LONGER VALID AS THE OPEN ACCESS HUB CLOSED DOWN, THUS API IS INVALID)
 ```
 # connect to the API
 from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
@@ -114,6 +114,9 @@ api.get_product_odata(<product_id>)
 api.get_product_odata(<product_id>, full=True)
 
 ```
+
+### SENTINEL2 IMAGE DATA --> NEW METHOD
+
 ## SENTINEL2 BANDS
 ```
 Band   Category	  Spatial Resolution	Revisit

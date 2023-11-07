@@ -74,7 +74,7 @@ This is as follows:
 ```
 
 
-### SENTINEL2 IMAGE DATA --> OLD METHOD
+### SENTINEL2 IMAGE DATA --> OLD METHOD (sentinel.py)
 
 Sentinel 2 data can be downloaded using a API Script such as the following (NOTE THIS IS NO LONGER VALID AS THE OPEN ACCESS HUB CLOSED DOWN, THUS API IS INVALID)
 ```
@@ -115,7 +115,7 @@ api.get_product_odata(<product_id>, full=True)
 
 ```
 
-### SENTINEL2 IMAGE DATA --> NEW METHOD
+### SENTINEL2 IMAGE DATA --> NEW METHOD (corp.py)
 ```
 import json,zipfile
 import requests,sys,os,datetime
@@ -252,7 +252,7 @@ B11	20 m	SWIR, 1613.7 nm (S2A), 442.2 nm (S2B)
 B12	20 m	SWIR, 2202.4 nm (S2A), 442.2 nm (S2B)
 ```
 
-## SENTINEL DOWNLOAD/CONVERSION BASH SCRIPT - UPDATED FOR NEW PYTHON SCRIPT
+## SENTINEL DOWNLOAD/CONVERSION BASH SCRIPT - UPDATED FOR NEW PYTHON SCRIPT (SentinelTiffNew.sh)
 ```
 #!/bin/sh
 set -e

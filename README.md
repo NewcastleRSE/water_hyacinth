@@ -28,7 +28,8 @@ It requires download of the key UBUNTU.pem which can be found in the AWS console
 Once downloaded, run the following command from the same directory:
 
 >  ssh -i "ubuntu.pem" ubuntu@ec2-16-16-213-96.eu-north-1.compute.amazonaws.com
-
+### URL
+http://ec2-51-20-68-120.eu-north-1.compute.amazonaws.com/poly/
 ### Folders
 Once logged into the AWS box, you will be in the home directory (/home/ubuntu)
 To access the app install folders navigate to the following directory:

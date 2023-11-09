@@ -253,7 +253,7 @@ B11	20 m	SWIR, 1613.7 nm (S2A), 442.2 nm (S2B)
 B12	20 m	SWIR, 2202.4 nm (S2A), 442.2 nm (S2B)
 ```
 
-## SENTINEL DOWNLOAD/CONVERSION BASH SCRIPT - UPDATED FOR NEW PYTHON SCRIPT (SentinelTiffNew.sh)
+## SENTINEL DOWNLOAD/CONVERSION BASH SCRIPT - UPDATED FOR NEW PYTHON SCRIPT (SentinelTiff.sh)
 ```
 #!/bin/sh
 set -e
@@ -296,6 +296,8 @@ echo ""
 echo "Converting to compressed GeoTiff"
 sleep 3
 gdal_translate -ot Byte -co TILED=YES -co COMPRESS=JPEG -co PHOTOMETRIC=YCBCR -scale 0 4096 0 255 TCI.vrt TCI.tif
+#gdal_translate -ot Byte -co TILED=YES -co COMPRESS=JPEG -scale 0 4096 0 255 TCI.vrt TCI.tif
+
 echo "Done!"
 echo ""
 

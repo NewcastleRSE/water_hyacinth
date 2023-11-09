@@ -48,6 +48,14 @@ var geocoder = L.Control.geocoder({
 var controlLayers = L.control.layers().addTo(map);
 
 var file = 'json/mergebig.json';
+var file2 = 'json/merge.json';
+var file3 = 'json/merge.json';
+var file4 = 'json/merge.json';
+var file5 = 'json/merge.json';
+var file6 = 'json/merge.json';
+var file7 = 'json/merge.json';
+var file8 = 'json/merge.json';
+
 
 $.getJSON(file, function (geojson) {
   var geojsonLayer = L.geoJson(geojson, {
@@ -59,21 +67,115 @@ $.getJSON(file, function (geojson) {
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'Water Hyacincth Extent');
+  controlLayers.addOverlay(geojsonLayer, 'WH T1');
 });
 
-$.getJSON(file, function (geojson) {
+$.getJSON(file2, function (geojson) {
   var geojsonLayer = L.geoJson(geojson, {
     style: function (feature) {
       return {
-        'weight': 1,
-        'color': 'red',
-        'fillOpacity': 0
+        'weight': 0,
+        'fillColor': 'pink',
+        'fillOpacity': 0.30
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'Water Hyacinth Border');
+  controlLayers.addOverlay(geojsonLayer, 'WH T2');
 });
+
+$.getJSON(file3, function (geojson) {
+  var geojsonLayer = L.geoJson(geojson, {
+    style: function (feature) {
+      return {
+        'weight': 0,
+        'fillColor': 'pink',
+        'fillOpacity': 0.50
+      }
+    }
+  });
+  controlLayers.addOverlay(geojsonLayer, 'WH T3');
+});
+
+$.getJSON(file4, function (geojson) {
+  var geojsonLayer = L.geoJson(geojson, {
+    style: function (feature) {
+      return {
+        'weight': 0,
+        'fillColor': 'pink',
+        'fillOpacity': 0.30
+      }
+    }
+  });
+  controlLayers.addOverlay(geojsonLayer, 'WH T4');
+});
+
+$.getJSON(file5, function (geojson) {
+  var geojsonLayer = L.geoJson(geojson, {
+    style: function (feature) {
+      return {
+        'weight': 0,
+        'fillColor': 'pink',
+        'fillOpacity': 0.30
+      }
+    }
+  });
+  controlLayers.addOverlay(geojsonLayer, 'WH T5');
+});
+
+$.getJSON(file6, function (geojson) {
+  var geojsonLayer = L.geoJson(geojson, {
+    style: function (feature) {
+      return {
+        'weight': 0,
+        'fillColor': 'pink',
+        'fillOpacity': 0.30
+      }
+    }
+  });
+  controlLayers.addOverlay(geojsonLayer, 'WH T6');
+});
+
+$.getJSON(file7, function (geojson) {
+  var geojsonLayer = L.geoJson(geojson, {
+    style: function (feature) {
+      return {
+        'weight': 0,
+        'fillColor': 'pink',
+        'fillOpacity': 0.30
+      }
+    }
+  });
+  controlLayers.addOverlay(geojsonLayer, 'WH T7');
+});
+
+$.getJSON(file8, function (geojson) {
+  var geojsonLayer = L.geoJson(geojson, {
+    style: function (feature) {
+      return {
+        'weight': 0,
+        'fillColor': 'pink',
+        'fillOpacity': 0.30
+      }
+    }
+  });
+  controlLayers.addOverlay(geojsonLayer, 'WH T8');
+});
+
+
+
+
+//$.getJSON(file, function (geojson) {
+//  var geojsonLayer = L.geoJson(geojson, {
+//    style: function (feature) {
+//      return {
+//        'weight': 1,
+//        'color': 'red',
+//        'fillOpacity': 0
+//      }
+//    }
+//  });
+//  controlLayers.addOverlay(geojsonLayer, 'Water Hyacinth Border');
+//});
 
 
 //Add Basemaps

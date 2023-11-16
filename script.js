@@ -45,16 +45,17 @@ var geocoder = L.Control.geocoder({
   .addTo(map);
 
 //Add geojson control layers for viewing on map
-var controlLayers = L.control.layers().addTo(map);
+var controlLayers = L.control.layers(null, null,{collapsed: false}).addTo(map);
 
-var file = 'json/mergebig.json';
-var file2 = 'json/merge.json';
-var file3 = 'json/merge.json';
-var file4 = 'json/merge.json';
-var file5 = 'json/merge.json';
-var file6 = 'json/merge.json';
-var file7 = 'json/merge.json';
-var file8 = 'json/merge.json';
+
+var file = 'json/Chattri.json';
+var file2 = 'json/bihar.json';
+var file3 = 'json/harjana.json';
+var file4 = 'json/Andhra.json';
+var file5 = 'json/karna.json';
+var file6 = 'json/kerala.json';
+var file7 = 'json/Madhya.json';
+var file8 = 'json/telangana.json';
 
 
 $.getJSON(file, function (geojson) {
@@ -62,12 +63,13 @@ $.getJSON(file, function (geojson) {
     style: function (feature) {
       return {
         'weight': 0,
-        'fillColor': 'yellow',
-        'fillOpacity': 0.30
+        'fillColor': 'orange',
+        'fillOpacity': 0.40
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH T1');
+  controlLayers.addOverlay(geojsonLayer, 'WH Orange');
+
 });
 
 $.getJSON(file2, function (geojson) {
@@ -75,12 +77,12 @@ $.getJSON(file2, function (geojson) {
     style: function (feature) {
       return {
         'weight': 0,
-        'fillColor': 'pink',
-        'fillOpacity': 0.30
+        'fillColor': 'red',
+        'fillOpacity': 0.40
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH T2');
+  controlLayers.addOverlay(geojsonLayer, 'WH Red');
 });
 
 $.getJSON(file3, function (geojson) {
@@ -88,12 +90,12 @@ $.getJSON(file3, function (geojson) {
     style: function (feature) {
       return {
         'weight': 0,
-        'fillColor': 'pink',
-        'fillOpacity': 0.50
+        'fillColor': 'blue',
+        'fillOpacity': 0.40
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH T3');
+  controlLayers.addOverlay(geojsonLayer, 'WH Blue');
 });
 
 $.getJSON(file4, function (geojson) {
@@ -101,12 +103,12 @@ $.getJSON(file4, function (geojson) {
     style: function (feature) {
       return {
         'weight': 0,
-        'fillColor': 'pink',
-        'fillOpacity': 0.30
+        'fillColor': 'yellow',
+        'fillOpacity': 0.40
       }
     }
-  });
-  controlLayers.addOverlay(geojsonLayer, 'WH T4');
+  });3
+  controlLayers.addOverlay(geojsonLayer, 'WH Yellow');
 });
 
 $.getJSON(file5, function (geojson) {
@@ -115,11 +117,11 @@ $.getJSON(file5, function (geojson) {
       return {
         'weight': 0,
         'fillColor': 'pink',
-        'fillOpacity': 0.30
+        'fillOpacity': 0.40
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH T5');
+  controlLayers.addOverlay(geojsonLayer, 'WH Pink');
 });
 
 $.getJSON(file6, function (geojson) {
@@ -127,12 +129,12 @@ $.getJSON(file6, function (geojson) {
     style: function (feature) {
       return {
         'weight': 0,
-        'fillColor': 'pink',
-        'fillOpacity': 0.30
+        'fillColor': 'green',
+        'fillOpacity': 0.40
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH T6');
+  controlLayers.addOverlay(geojsonLayer, 'WH Green');
 });
 
 $.getJSON(file7, function (geojson) {
@@ -140,12 +142,12 @@ $.getJSON(file7, function (geojson) {
     style: function (feature) {
       return {
         'weight': 0,
-        'fillColor': 'pink',
-        'fillOpacity': 0.30
+        'fillColor': 'purple',
+        'fillOpacity': 0.40
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH T7');
+  controlLayers.addOverlay(geojsonLayer, 'WH Purple');
 });
 
 $.getJSON(file8, function (geojson) {
@@ -153,14 +155,21 @@ $.getJSON(file8, function (geojson) {
     style: function (feature) {
       return {
         'weight': 0,
-        'fillColor': 'pink',
-        'fillOpacity': 0.30
+        'fillColor': 'black',
+        'fillOpacity': 0.40
       }
     }
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH T8');
+  controlLayers.addOverlay(geojsonLayer, 'WH Black');
 });
 
+map.on('click', function(e) {        
+        var popLocation= e.latlng;
+        var popup = L.popup()
+        .setLatLng(popLocation)
+        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+        .openOn(map);        
+    });
 
 
 

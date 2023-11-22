@@ -16,16 +16,15 @@ var home = {
   zoom: 5
 };
 
-L.easyButton('<img src="512.png" style="width:16px">',function(btn,map){
-  map.setView([home.lat, home.lng], home.zoom);
-},'Zoom To Home').addTo(map);
-
 //L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 //  attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
 //}).addTo(map);
 
 //L.Control.geocoder().addTo(map);
 
+L.easyButton('<img src="512.png" style="width:16px">',function(btn,map){
+  map.setView([home.lat, home.lng], home.zoom);
+},'Zoom To Home').addTo(map);
 
 //Initiate geocoder and setup polygon select for search area found
 var geocoder = L.Control.geocoder({
@@ -39,10 +38,11 @@ var geocoder = L.Control.geocoder({
       bbox.getNorthEast(),
       bbox.getNorthWest(),
       bbox.getSouthWest()
-    ]).addTo(map);
+    ])//.addTo(map);
     map.fitBounds(poly.getBounds());
   })
   .addTo(map);
+
 
 //Add geojson control layers for viewing on map
 var controlLayers = L.control.layers(null, null,{collapsed: false}).addTo(map);
@@ -163,14 +163,107 @@ $.getJSON(file8, function (geojson) {
   controlLayers.addOverlay(geojsonLayer, 'WH Black');
 });
 
-map.on('click', function(e) {        
-        var popLocation= e.latlng;
-        var popup = L.popup()
-        .setLatLng(popLocation)
-        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-        .openOn(map);        
-    });
+var editableLayers = new L.FeatureGroup();
+map.addLayer(editableLayers);
 
+var drawControl = new L.Control.Draw({
+  position: 'topright',
+  draw: {
+    polyline: false,
+    polygon: {
+      allowIntersection: false, // Restricts shapes to simple polygons 
+      drawError: {
+        color: '#e1e100', // Color the shape will turn when intersects 
+        message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect 
+      }
+    },
+    circle: false, // Turns off this drawing tool 
+    rectangle: true,
+    marker: false
+  },
+  edit: {
+    featureGroup: editableLayers, //REQUIRED!! 
+    remove: true
+  }
+});
+
+map.addControl(drawControl);
+
+map.on(L.Draw.Event.CREATED, function(e) {
+  var type = e.layerType,
+    layer = e.layer;
+
+  if (type === 'marker') {
+    layer.bindPopup('LatLng: ' + layer.getLatLng().lat + ',' + layer.getLatLng().lng).openPopup();
+  }
+
+  editableLayers.addLayer(layer);
+  layerGeoJSON = editableLayers.toGeoJSON();
+  //alert("GEOJSON FORMAT\r\n" + JSON.stringify(layerGeoJSON));
+
+  var wkt_options = {};
+  var geojson_format = new OpenLayers.Format.GeoJSON();
+  var testFeature = geojson_format.read(layerGeoJSON);
+  var wkt = new OpenLayers.Format.WKT(wkt_options);
+  var out = wkt.write(testFeature);
+
+  alert("WKT FORMAT\r\n" + out);
+});
+
+//On Draw Edit Event
+map.on(L.Draw.Event.EDITED, function(e) {
+  var type = e.layerType,
+    layer = e.layer;
+
+  layerGeoJSON = editableLayers.toGeoJSON();
+  //alert("GEOJSON FORMAT\r\n" + JSON.stringify(layerGeoJSON));
+
+  var wkt_options = {};
+  var geojson_format = new OpenLayers.Format.GeoJSON();
+  var testFeature = geojson_format.read(layerGeoJSON);
+  var wkt = new OpenLayers.Format.WKT(wkt_options);
+  var out = wkt.write(testFeature);
+
+  alert("WKT FORMAT\r\n" + out);
+});
+
+//On Draw Delete Event
+map.on(L.Draw.Event.DELETED, function(e) {
+  var type = e.layerType,
+    layer = e.layer;
+
+  layerGeoJSON = editableLayers.toGeoJSON();
+ // alert("GEOJSON FORMAT\r\n" + JSON.stringify(layerGeoJSON));
+  var wkt_options = {};
+  var geojson_format = new OpenLayers.Format.GeoJSON();
+  var testFeature = geojson_format.read(layerGeoJSON);
+  var wkt = new OpenLayers.Format.WKT(wkt_options);
+  var out = wkt.write(testFeature);
+
+  //alert("WKT FORMAT\r\n" + out);
+});
+
+
+
+//map.on('click', function(e) {        
+//        var popLocation= e.latlng;
+//        var popup = L.popup()
+//        .setLatLng(popLocation)
+//        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+//        .openOn(map);        
+//    });
+
+
+//var popup = L.popup();
+
+//function onMapClick(e) {
+//popup
+//    .setLatLng(e.latlng)
+//    .setContent(e.latlng.toString() + '<br><a href="https://wktmap.com">Create Polygon here and paste WKT string...</a>"')
+//    .openOn(map);
+//}
+
+//map.on('click', onMapClick);
 
 
 //$.getJSON(file, function (geojson) {

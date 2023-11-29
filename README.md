@@ -41,6 +41,9 @@ This contains the following 3 files:
 * style.css (css)
 * script.js (Leaflet JS)
 
+* ### Git Working Directory
+> /home/ubuntu/py/water_hyacinth
+
 ## Coverting Shapefile to GeoJSON Pipeline...
 
 There is a staging process for converting shapefiles to a combined GeoJSON file for display on the Leaflet map. This is done within a bash script called merge.sh

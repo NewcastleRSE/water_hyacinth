@@ -24,7 +24,7 @@ JavaScript
 
 ### Prerequisites
 This app runs on a Ubuntu instance of AWS and can be accessed via SSH into the AWS box as follows:
-It requires download of the key UBUNTU.pem which can be found in the AWS console
+It requires download of the key UBUNTU.pem (download above)
 Once downloaded, run the following command from the same directory:
 
 >  ssh -i "ubuntu.pem" ubuntu@ec2-16-16-213-96.eu-north-1.compute.amazonaws.com
@@ -41,7 +41,7 @@ This contains the following 3 files:
 * style.css (css)
 * script.js (Leaflet JS)
 
-* ### Git Working Directory
+### Git Working Directory
 > /home/ubuntu/py/water_hyacinth
 
 ## Coverting Shapefile to GeoJSON Pipeline...

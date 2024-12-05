@@ -1,8 +1,11 @@
-import json,zipfile
-import requests,sys,os,datetime
-import pandas as pd
 import datetime as dt
-from datetime import timedelta
+import zipfile
+
+import os
+import pandas as pd
+import requests
+from dotenv import load_dotenv
+
 
 now = dt.datetime.today().strftime("%Y-%m-%d")
 print(now)
@@ -27,8 +30,12 @@ def get_access_token(username: str, password: str) -> str:
             )
     return r.json()["access_token"]
 
+load_dotenv()
 
-access_token = get_access_token("ben.daly@ncl.ac.uk", "########")
+access_token = get_access_token(
+    os.getenv('COPERNICUS_EMAIL'),
+    os.getenv('COPERNICUS_PASSWORD')
+)
 
 #=====================================#
 

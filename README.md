@@ -39,6 +39,8 @@ JavaScript
 
 ### Prerequisites
 
+TODO: Add .env file description, how to sign up and get keys etc. on https://dataspace.copernicus.eu
+
 This app runs on a Ubuntu instance of AWS and can be accessed via SSH into the AWS box as follows:
 It requires download of the key UBUNTU.pem (download above)
 Once downloaded, run the following command from the same directory:
@@ -145,19 +147,14 @@ api.get_product_odata(<product_id>, full=True)
 ### SENTINEL2 IMAGE DATA --> NEW METHOD (corp.py)
 
 ```python
-import datetime as dt
 import zipfile
 
 import os
 import pandas as pd
 import requests
-
-now = dt.datetime.today().strftime("%Y-%m-%d")
-print(now)
-
+from dotenv import load_dotenv
 
 # Setup access token/entry to dataspace access hub...
-
 def get_access_token(username: str, password: str) -> str:
     data = {
         "client_id": "cdse-public",
@@ -177,8 +174,12 @@ def get_access_token(username: str, password: str) -> str:
     return r.json()["access_token"]
 
 
-access_token = get_access_token("ben.daly@ncl.ac.uk", "########")
+load_dotenv()
 
+access_token = get_access_token(
+    os.getenv('COPERNICUS_EMAIL'),
+    os.getenv('COPERNICUS_PASSWORD')
+)
 # =====================================#
 
 # Set parameters for data download...

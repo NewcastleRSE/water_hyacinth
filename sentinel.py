@@ -1,10 +1,11 @@
-from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
-from datetime import date
-import os, zipfile, shutil, sys
 import logging
+import os
+import sys
+import zipfile
 
+from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
 
-user = 'brd102' 
+user = 'brd102'
 password = '***' 
 
 api = SentinelAPI(user,password,'https://apihub.copernicus.eu/apihub')

@@ -4,7 +4,7 @@ set -e
 ## BASH SCRIPT TO DOWNLOAD SENTINEL2 IMAGERY AND PROCESS
 ## RGB SPECTRAL BANDS INTO GEOTIFF OUTPUT
 
-echo "Starting automated download of Sentimel2 imagery and processing RGB bands to Geotiff Output"
+echo "Starting automated download of Sentinel2 imagery and processing RGB bands to Geotiff Output"
 sleep 3
 
 #1. Download Sentinel2 Image File

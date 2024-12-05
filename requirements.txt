@@ -1,0 +1,5 @@
+sentinelsat
+pyshp
+pandas
+requests
+python-dateutil

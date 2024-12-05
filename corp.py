@@ -1,7 +1,7 @@
 import json,zipfile
 import requests,sys,os,datetime
 import pandas as pd
-import datetime as dt 
+import datetime as dt
 from datetime import timedelta
 
 now = dt.datetime.today().strftime("%Y-%m-%d")
@@ -23,10 +23,10 @@ def get_access_token(username: str, password: str) -> str:
         r.raise_for_status()
     except Exception as e:
         raise Exception(
-            f"Access token creation failed. Reponse from the server was: {r.json()}"
+            f"Access token creation failed. Response from the server was: {r.json()}"
             )
     return r.json()["access_token"]
-        
+
 
 access_token = get_access_token("ben.daly@ncl.ac.uk", "########")
 
@@ -42,7 +42,7 @@ end_date = "2023-10-30"
 data_collection = "SENTINEL-2"
 #aoi = 'POLYGON((73.76637462028609 18.60744222377967,73.76637462028609 18.454997850822508, 73.94931027079727 18.454997850822508,73.94931027079727 18.60744222377967,73.76637462028609 18.60744222377967))'
 aoi = 'POLYGON ((77.497559 16.746688, 78.865356 16.799282, 79.656372 16.562493, 79.82666 15.850389, 79.491577 15.337167, 78.651123 15.130462, 77.711792 15.252389, 77.167969 15.850389, 77.102051 16.372851, 77.497559 16.746688))'
-#aoi = 'POINT (18.6 73.9)' 
+#aoi = 'POINT (18.6 73.9)'
 
 json = requests.get(f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter=contains(Name,'S2A') and Attributes/OData.CSC.DoubleAttribute/any(att:att/Name eq 'cloudCover' and att/OData.CSC.DoubleAttribute/Value lt 20.00) and OData.CSC.Intersects(area=geography'SRID=4326;{aoi}') and ContentDate/Start gt {start_date}T00:00:00.000Z and ContentDate/Start lt {end_date}T00:00:00.000Z").json()
 
@@ -54,10 +54,10 @@ json = requests.get(f"https://catalogue.dataspace.copernicus.eu/odata/v1/Product
 df = pd.DataFrame.from_dict(json['value'])
 df = df.sort_values(by=['Name'],ascending=False)
 
-#Print out DF 
+#Print out DF
 print(df)
 
-#Take first result (most recent data file) ID from dataframe 
+#Take first result (most recent data file) ID from dataframe
 ID = df.iloc[0,1]
 print(ID)
 

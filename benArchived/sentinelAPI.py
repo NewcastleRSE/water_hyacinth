@@ -10,7 +10,8 @@ from datetime import date
 api = SentinelAPI('user', 'password', 'https://apihub.copernicus.eu/apihub')
 
 # download single scene by known product id
-api.download(<product_id>)
+# api.download(<product_id>)
+api.download("<product_id>")
 
 # search by polygon, time, and SciHub query keywords
 footprint = geojson_to_wkt(read_geojson('/path/to/map.geojson'))
@@ -33,7 +34,7 @@ api.to_geodataframe(products)
 
 # Get basic information about the product: its title, file size, MD5 sum, date, footprint and
 # its download url
-api.get_product_odata(<product_id>)
+api.get_product_odata("<product_id>")
 
 # Get the product's full metadata available on the server
-api.get_product_odata(<product_id>, full=True)
+api.get_product_odata("<product_id>", full=True)

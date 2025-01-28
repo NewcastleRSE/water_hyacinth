@@ -1,6 +1,5 @@
-//Initiate Map
-
-var map = L.map('map', {
+// Initialize map
+const map = L.map('map', {
   'center': [23.51, 80.33],
   'zoom': 5,
   'layers': [
@@ -10,311 +9,187 @@ var map = L.map('map', {
   ]
 });
 
-var home = {
+const home = {
   lat: 23.51,
   lng: 80.33,
   zoom: 5
 };
 
-//L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-//  attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-//}).addTo(map);
-
-//L.Control.geocoder().addTo(map);
-
-L.easyButton('<img src="512.png" style="width:16px">',function(btn,map){
+// Add home button
+L.easyButton('<img src="./assets/512.png" style="width:16px">', function(btn, map) {
   map.setView([home.lat, home.lng], home.zoom);
-},'Zoom To Home').addTo(map);
+}, 'Zoom To Home').addTo(map);
 
-//Initiate geocoder and setup polygon select for search area found
-var geocoder = L.Control.geocoder({
-        position:'topleft',
-	defaultMarkGeocode: false
+// Initialize geocoder
+const geocoder = L.Control.geocoder({
+  position: 'topleft',
+  defaultMarkGeocode: false
 })
-   .on('markgeocode', (e) => {	  
-    var bbox = e.geocode.bbox;
-    var poly = L.polygon([
-      bbox.getSouthEast(),
-      bbox.getNorthEast(),
-      bbox.getNorthWest(),
-      bbox.getSouthWest()
-    ])//.addTo(map);
-    map.fitBounds(poly.getBounds());
-  })
-  .addTo(map);
+.on('markgeocode', (e) => {
+  const bbox = e.geocode.bbox;
+  const poly = L.polygon([
+    bbox.getSouthEast(),
+    bbox.getNorthEast(),
+    bbox.getNorthWest(),
+    bbox.getSouthWest()
+  ]);
+  map.fitBounds(poly.getBounds());
+})
+.addTo(map);
 
+// Initialize layer controls
+const controlLayers = L.control.layers(null, null, {collapsed: false}).addTo(map);
 
-//Add geojson control layers for viewing on map
-var controlLayers = L.control.layers(null, null,{collapsed: false}).addTo(map);
+// GeoJSON files
+const geoJsonFiles = {
+  'Chattri': { color: 'orange', label: 'WH Orange' },
+  'bihar': { color: 'red', label: 'WH Red' },
+  'harjana': { color: 'blue', label: 'WH Blue' },
+  'Andhra': { color: 'yellow', label: 'WH Yellow' },
+  'karna': { color: 'pink', label: 'WH Pink' },
+  'kerala': { color: 'green', label: 'WH Green' },
+  'Madhya': { color: 'purple', label: 'WH Purple' },
+  'telangana': { color: 'black', label: 'WH Black' }
+};
 
-
-var file = 'json/Chattri.json';
-var file2 = 'json/bihar.json';
-var file3 = 'json/harjana.json';
-var file4 = 'json/Andhra.json';
-var file5 = 'json/karna.json';
-var file6 = 'json/kerala.json';
-var file7 = 'json/Madhya.json';
-var file8 = 'json/telangana.json';
-
-
-$.getJSON(file, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'orange',
-        'fillOpacity': 0.40
+// Load GeoJSON layers
+Object.entries(geoJsonFiles).forEach(([name, config]) => {
+  $.getJSON(`json/${name}.json`, function(geojson) {
+    const geojsonLayer = L.geoJson(geojson, {
+      style: function(feature) {
+        return {
+          'weight': 0,
+          'fillColor': config.color,
+          'fillOpacity': 0.40
+        };
       }
-    }
+    });
+    controlLayers.addOverlay(geojsonLayer, config.label);
   });
-  controlLayers.addOverlay(geojsonLayer, 'WH Orange');
-
 });
 
-$.getJSON(file2, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'red',
-        'fillOpacity': 0.40
-      }
-    }
-  });
-  controlLayers.addOverlay(geojsonLayer, 'WH Red');
-});
-
-$.getJSON(file3, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'blue',
-        'fillOpacity': 0.40
-      }
-    }
-  });
-  controlLayers.addOverlay(geojsonLayer, 'WH Blue');
-});
-
-$.getJSON(file4, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'yellow',
-        'fillOpacity': 0.40
-      }
-    }
-  });3
-  controlLayers.addOverlay(geojsonLayer, 'WH Yellow');
-});
-
-$.getJSON(file5, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'pink',
-        'fillOpacity': 0.40
-      }
-    }
-  });
-  controlLayers.addOverlay(geojsonLayer, 'WH Pink');
-});
-
-$.getJSON(file6, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'green',
-        'fillOpacity': 0.40
-      }
-    }
-  });
-  controlLayers.addOverlay(geojsonLayer, 'WH Green');
-});
-
-$.getJSON(file7, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'purple',
-        'fillOpacity': 0.40
-      }
-    }
-  });
-  controlLayers.addOverlay(geojsonLayer, 'WH Purple');
-});
-
-$.getJSON(file8, function (geojson) {
-  var geojsonLayer = L.geoJson(geojson, {
-    style: function (feature) {
-      return {
-        'weight': 0,
-        'fillColor': 'black',
-        'fillOpacity': 0.40
-      }
-    }
-  });
-  controlLayers.addOverlay(geojsonLayer, 'WH Black');
-});
-
-var editableLayers = new L.FeatureGroup();
+// Initialize editable layers
+const editableLayers = new L.FeatureGroup();
 map.addLayer(editableLayers);
 
-var drawControl = new L.Control.Draw({
+// Drawing controls
+const drawControl = new L.Control.Draw({
   position: 'topright',
   draw: {
     polyline: false,
     polygon: {
-      allowIntersection: false, // Restricts shapes to simple polygons 
+      allowIntersection: false,
       drawError: {
-        color: '#e1e100', // Color the shape will turn when intersects 
-        message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect 
+        color: '#e1e100',
+        message: '<strong>Oh snap!</strong> you can\'t draw that!'
       }
     },
-    circle: false, // Turns off this drawing tool 
+    circle: false,
     rectangle: true,
     marker: false
   },
   edit: {
-    featureGroup: editableLayers, //REQUIRED!! 
+    featureGroup: editableLayers,
     remove: true
   }
 });
 
 map.addControl(drawControl);
 
+// Drawing event handlers
 map.on(L.Draw.Event.CREATED, function(e) {
-  var type = e.layerType,
-    layer = e.layer;
-
-  if (type === 'marker') {
-    layer.bindPopup('LatLng: ' + layer.getLatLng().lat + ',' + layer.getLatLng().lng).openPopup();
+  const layer = e.layer;
+  
+  if (e.layerType === 'marker') {
+    layer.bindPopup(`LatLng: ${layer.getLatLng().lat},${layer.getLatLng().lng}`).openPopup();
   }
 
   editableLayers.addLayer(layer);
-  layerGeoJSON = editableLayers.toGeoJSON();
-  //alert("GEOJSON FORMAT\r\n" + JSON.stringify(layerGeoJSON));
+  const layerGeoJSON = editableLayers.toGeoJSON();
 
-  var wkt_options = {};
-  var geojson_format = new OpenLayers.Format.GeoJSON();
-  var testFeature = geojson_format.read(layerGeoJSON);
-  var wkt = new OpenLayers.Format.WKT(wkt_options);
-  var out = wkt.write(testFeature);
+  const wkt_options = {};
+  const geojson_format = new OpenLayers.Format.GeoJSON();
+  const testFeature = geojson_format.read(layerGeoJSON);
+  const wkt = new OpenLayers.Format.WKT(wkt_options);
+  const out = wkt.write(testFeature);
 
   alert("WKT FORMAT\r\n" + out);
 });
 
-//On Draw Edit Event
 map.on(L.Draw.Event.EDITED, function(e) {
-  var type = e.layerType,
-    layer = e.layer;
-
-  layerGeoJSON = editableLayers.toGeoJSON();
-  //alert("GEOJSON FORMAT\r\n" + JSON.stringify(layerGeoJSON));
-
-  var wkt_options = {};
-  var geojson_format = new OpenLayers.Format.GeoJSON();
-  var testFeature = geojson_format.read(layerGeoJSON);
-  var wkt = new OpenLayers.Format.WKT(wkt_options);
-  var out = wkt.write(testFeature);
+  const layerGeoJSON = editableLayers.toGeoJSON();
+  const wkt_options = {};
+  const geojson_format = new OpenLayers.Format.GeoJSON();
+  const testFeature = geojson_format.read(layerGeoJSON);
+  const wkt = new OpenLayers.Format.WKT(wkt_options);
+  const out = wkt.write(testFeature);
 
   alert("WKT FORMAT\r\n" + out);
 });
 
-//On Draw Delete Event
 map.on(L.Draw.Event.DELETED, function(e) {
-  var type = e.layerType,
-    layer = e.layer;
-
-  layerGeoJSON = editableLayers.toGeoJSON();
- // alert("GEOJSON FORMAT\r\n" + JSON.stringify(layerGeoJSON));
-  var wkt_options = {};
-  var geojson_format = new OpenLayers.Format.GeoJSON();
-  var testFeature = geojson_format.read(layerGeoJSON);
-  var wkt = new OpenLayers.Format.WKT(wkt_options);
-  var out = wkt.write(testFeature);
-
-  //alert("WKT FORMAT\r\n" + out);
+  const layerGeoJSON = editableLayers.toGeoJSON();
+  const wkt_options = {};
+  const geojson_format = new OpenLayers.Format.GeoJSON();
+  const testFeature = geojson_format.read(layerGeoJSON);
+  const wkt = new OpenLayers.Format.WKT(wkt_options);
 });
 
-
-
-//map.on('click', function(e) {        
-//        var popLocation= e.latlng;
-//        var popup = L.popup()
-//        .setLatLng(popLocation)
-//        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-//        .openOn(map);        
-//    });
-
-
-//var popup = L.popup();
-
-//function onMapClick(e) {
-//popup
-//    .setLatLng(e.latlng)
-//    .setContent(e.latlng.toString() + '<br><a href="https://wktmap.com">Create Polygon here and paste WKT string...</a>"')
-//    .openOn(map);
-//}
-
-//map.on('click', onMapClick);
-
-
-//$.getJSON(file, function (geojson) {
-//  var geojsonLayer = L.geoJson(geojson, {
-//    style: function (feature) {
-//      return {
-//        'weight': 1,
-//        'color': 'red',
-//        'fillOpacity': 0
-//      }
-//    }
-//  });
-//  controlLayers.addOverlay(geojsonLayer, 'Water Hyacinth Border');
-//});
-
-
-//Add Basemaps
-var osm = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"),
-    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
-        maxZoom: 20,
-        subdomains:['mt0','mt1','mt2','mt3']
+// Add base maps
+const osm = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+const googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+  maxZoom: 20,
+  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
 });
 
-var baseMaps = {
-    "OpenStreetMap": osm,
-    "Satellite": googleSat
+const baseMaps = {
+  "OpenStreetMap": osm,
+  "Satellite": googleSat
 };
 
-var overlays =  {//add any overlays here
+L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
 
-    };
+// Search functionality
+async function handleSearch(event) {
+  event.preventDefault();
 
-L.control.layers(baseMaps,overlays, {position: 'bottomleft'}).addTo(map);
+  const startDate = document.getElementById('start-date').value;
+  const endDate = document.getElementById('end-date').value;
+  const latitude = document.getElementById('latitude').value;
+  const longitude = document.getElementById('longitude').value;
 
-  //-- Searchbox
-//  var markersLayer = new L.LayerGroup();  //layer contain searched elements
+  const searchStatus = document.getElementById('search-status');
+  const form = document.getElementById('search-form');
 
-//  map.addLayer(markersLayer);
+  // Show loading state
+  searchStatus.style.display = 'block';
+  form.querySelector('button').disabled = true;
 
-//  var controlSearch = new L.Control.Search({
-//      position:'topleft',
-//      layer: markersLayer,
-//      initial: false,
-//      zoom: 15,
-//      marker: false,
-//      clickable: true
-//  });
+  try {
+    const response = await fetch('http://localhost:5000/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        start_date: startDate,
+        end_date: endDate,
+        coordinates: `POINT(${longitude} ${latitude})`
+      })
+    });
 
-  //- Show popup (info window) if found
-//  controlSearch.on("search:locationfound", function (e) {
-//    if (e.layer._popup) e.layer.openPopup();
-//  });
+    const result = await response.json();
 
-//  map.addControl(controlSearch);
+    if (result.status === 'success') {
+      alert('Data downloaded successfully!');
+    } else {
+      alert(`Error: ${result.message}`);
+    }
+  } catch (error) {
+    alert('Error connecting to server');
+    console.error('Error:', error);
+  } finally {
+    searchStatus.style.display = 'none';
+    form.querySelector('button').disabled = false;
+  }
+}

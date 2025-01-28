@@ -1,12 +1,16 @@
-import logging
-import os
-import sys
-import zipfile
+"""
+Ben's old `sentinel.py` file created at 24 Oct 2023.
+This file is for reference.
+"""
 
 from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
+from datetime import date
+import os, zipfile, shutil, sys
+import logging
+
 
 user = 'brd102'
-password = '***' 
+password = '***'
 
 api = SentinelAPI(user,password,'https://apihub.copernicus.eu/apihub')
 dir_name = '.'

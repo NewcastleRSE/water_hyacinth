@@ -1,4 +1,7 @@
 /.idea/
+/.vscode/
 /.venv/
 ubuntu.pem
 .env
+.DS_Store
+*.swp

@@ -78,7 +78,7 @@ Firstly the shapefiles should be downloaded into the directory /home/ubuntu/py/s
 #!/bin/sh
 
 rm -rf /home/ubuntu/py/json/*.json
-python3 shptojson.py
+python3 shapefile_to_geojson.py
 geojson-merge json/*.json > json/mergebig.json
 mapshaper json/mergebig0.json -simplify dp 10% keep-shapes -o format=geojson json/mergebig.json
 cp json/mergebig.json /var/www/html/poly/json
@@ -89,7 +89,7 @@ cp json/mergebig.json /var/www/html/poly/json
 rm -rf /home/ubuntu/py/json/*.json
 
 #  (this is script that converts the shapefiles to json files and saves them in /home/ubuntu/py/json
-python3 shptojson.py
+python3 shapefile_to_geojson.py
 
 #  (this merges the created converted json files into 1 geojson file for overlay on leaflet map)
 geojson-merge json/*.json > json/mergebig0.json
@@ -303,7 +303,7 @@ echo ""
 #2. Extract RGB Files from Sentinel 2 Folder
 
 echo "Extracting RGB Files from Sentinel 2 Folder"
-python3 file.py
+python3 extract_rgb_bands.py
 echo "Done!"
 sleep 3
 echo ""
@@ -366,7 +366,7 @@ On the Ubuntu box, navigate to the following directory to find the bash script a
 cd /mnt/GetData
 
 ls
-SentinelTiff.sh  corbettNP.json  file.py  park.json  sentinel.py
+download_and_process_sentinel2.sh  corbettNP.json  extract_rgb_bands.py  park.json  sentinel.py
 ```
 
 ## Mount drive on reboot

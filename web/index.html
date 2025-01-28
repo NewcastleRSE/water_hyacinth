@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"
+          data-require="leaflet@0.7.3" data-semver="0.7.3"/>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css"/>
+    <link href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
+    <link rel="stylesheet" href="style.css"/>
+    <title>Invasive Water Hyacinth Project | Newcastle University</title>
+</head>
+<body>
+<!-- NAV BAR -->
+<div id="navbar"
+     style="position: absolute; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #2c3e50; color: white; padding: 10px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: space-between; box-sizing: border-box;">
+    <!-- Logo and Title Section -->
+    <div style="display: flex; align-items: center;">
+        <img src="../assets/ncl-logo.svg" alt="Logo" style="height: 40px; margin-right: 20px;"/>
+        <div>
+            <h1 style="margin: 0; font-size: 20px;">Invasive Water Hyacinth</h1>
+            <p style="margin: 0; font-size: 14px; color: #bdc3c7;">Newcastle University</p>
+        </div>
+    </div>
+
+    <!-- Contact Us Button -->
+    <a href="https://www.ncl.ac.uk" target="_blank" style="text-decoration: none; margin-left: auto;">
+        <button style="padding: 8px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">
+            Contact Us
+        </button>
+    </a>
+    <!-- Date Picker -->
+    <div id="search-controls">
+        <h2>Search Satellite Data</h2>
+
+        <form id="search-form" onsubmit="handleSearch(event)">
+            <div class="coordinates-section">
+                <label>Coordinates</label>
+                <div class="coordinates-inputs">
+                    <input type="number" id="latitude" placeholder="Latitude" step="0.000001" required>
+                    <input type="number" id="longitude" placeholder="Longitude" step="0.000001" required>
+                </div>
+            </div>
+
+            <div class="date-range-section">
+                <label>Date Range</label>
+                <div class="date-inputs">
+                    <input type="date" id="start-date" required>
+                    <input type="date" id="end-date" required>
+                </div>
+            </div>
+
+            <button type="submit">Search</button>
+        </form>
+
+        <div id="search-status" style="display: none;">
+            <div style="display: flex; align-items: center;">
+                <div class="spinner"></div>
+                <span>Searching for satellite data...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDER -->
+<div id="slider-container"
+     style="position: absolute; top: 75px; right: 10px; z-index: 1000; background-color: white; padding: 10px; border-radius: 8px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);">
+    <label for="map-slider">Adjust Historic Year:</label>
+    <input id="map-slider" type="range" min="0" max="2" step="1" value="0">
+    <p id="slider-date" style="margin-top: 10px; font-weight: bold;">Year: 2023</p>
+
+    <!-- Checkbox for showing/hiding the polygon -->
+    <div style="margin-top: 10px;">
+        <input type="checkbox" id="toggle-polygon" checked>
+        <label for="toggle-polygon">Show Border Area</label>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"
+        data-require="leaflet@0.7.3" data-semver="0.7.3"></script>
+<script src="https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js"></script>
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet-src.js"></script>
+<link rel="stylesheet" href="https://onpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.css"/>
+<script src="https://unpkg.com/leaflet-search@2.3.7/dist/leaflet-search.src.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<link href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css" rel="stylesheet"/>
+<script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js'></script>
+<script src='https://cdn.jsdelivr.net/gh/Leaflet/Leaflet.Editable@1.2.0/src/Leaflet.Editable.js'></script>
+<script src='https://openlayers.org/api/OpenLayers.js'></script>
+<div id="map"></div>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

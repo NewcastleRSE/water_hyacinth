@@ -56,7 +56,7 @@ logging.info(f"Using credentials for user: {username}")
 access_token = get_access_token(username, password)
 
 # Set up file handling parameters
-dir_name = '.'
+dir_name = '../..'
 extension = ".zip"
 
 # Define search parameters

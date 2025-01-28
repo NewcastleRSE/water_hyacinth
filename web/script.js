@@ -16,7 +16,7 @@ const home = {
 };
 
 // Add home button
-L.easyButton('<img src="./assets/512.png" style="width:16px">', function(btn, map) {
+L.easyButton('<img src="../assets/512.png" style="width:16px">', function(btn, map) {
   map.setView([home.lat, home.lng], home.zoom);
 }, 'Zoom To Home').addTo(map);
 

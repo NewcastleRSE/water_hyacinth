@@ -1,3 +1,8 @@
+"""
+Ben's old `sentinelAPI.py` file created at 24 Oct 2023.
+This file is for reference.
+"""
+
 # connect to the API
 from sentinelsat import SentinelAPI, read_geojson, geojson_to_wkt
 from datetime import date

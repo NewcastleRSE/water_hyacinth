@@ -129,7 +129,7 @@ with open(f"sentinel.zip", 'wb') as p:
 print("Done")
 
 # Extract downloaded data
-dir_name = '.'  # Current directory
+dir_name = '../..'  # Current directory
 extension = ".zip"
 
 print("\nUnzipping downloaded files into folders...")

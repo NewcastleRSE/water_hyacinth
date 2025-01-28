@@ -1,10 +1,16 @@
 #!/bin/sh
 set -e
 
+####
+# Ben's old `SentinelTiffIR.sh` file created around November 2023.
+# This file is for reference.
+####
+
+
 ## BASH SCRIPT TO DOWNLOAD SENTINEL2 IMAGERY AND PROCESS
 ## RGB SPECTRAL BANDS INTO GEOTIFF OUTPUT
 
-echo "Starting automated download of Sentinel2 imagery and processing RGB bands to Geotiff Output"
+echo "Starting automated download of Sentimel2 imagery and processing RGB bands to Geotiff Output"
 sleep 3
 
 #1. Download Sentinel2 Image File
@@ -24,7 +30,7 @@ echo ""
 #3. Merge bands
 echo "Merging bands"
 sleep 3
-gdalbuildvrt -separate TCI.vrt B04.jp2 B03.jp2 B02.jp2
+gdalbuildvrt -separate TCI.vrt B08.jp2 B04.jp2 B03.jp2 B02.jp2
 echo "Done!"
 echo ""
 
@@ -32,21 +38,21 @@ echo ""
 #echo "Converting to uncompressed GeoTiff"
 #sleep 3
 #gdal_translate -ot Byte -co TILED=YES -scale 0 4096 0 255 TCI.vrt TCI.tif
-#echo "Done!"                                                                                                                      
+#echo "Done!"
 #echo ""
 
 #4. Convert to JPEG - compressed GeoTiff
 echo "Converting to compressed GeoTiff"
 sleep 3
-gdal_translate -ot Byte -co TILED=YES -co COMPRESS=JPEG -co PHOTOMETRIC=YCBCR -scale 0 4096 0 255 TCI.vrt TCI.tif
-#gdal_translate -ot Byte -co TILED=YES -co COMPRESS=JPEG -scale 0 4096 0 255 TCI.vrt TCI.tif
+#gdal_translate -ot Byte -co TILED=YES -co COMPRESS=JPEG -co PHOTOMETRIC=YCBCR -scale 0 4096 0 255 TCI.vrt TCI.tif
+gdal_translate -ot Byte -co TILED=YES -co COMPRESS=JPEG -scale 0 4096 0 255 TCI.vrt TCI.tif
 
 echo "Done!"
 echo ""
 
 #5. Move tif file to web directory
 sleep 3
-echo "timestamp tiff and copy to tiff folder" 
+echo "timestamp tiff and copy to tiff folder"
 echo "copy tif to web folder"
 cp TCI.tif /var/www/html/temp
 echo "Done!"

@@ -1,3 +1,8 @@
+/*
+ * Ben's old `file.py` file created around November 2023.
+ * This file is for reference.
+ */
+
 //Initiate Map
 
 var map = L.map('map', {
@@ -31,7 +36,7 @@ var geocoder = L.Control.geocoder({
         position:'topleft',
 	defaultMarkGeocode: false
 })
-   .on('markgeocode', (e) => {	  
+   .on('markgeocode', (e) => {
     var bbox = e.geocode.bbox;
     var poly = L.polygon([
       bbox.getSouthEast(),
@@ -171,18 +176,18 @@ var drawControl = new L.Control.Draw({
   draw: {
     polyline: false,
     polygon: {
-      allowIntersection: false, // Restricts shapes to simple polygons 
+      allowIntersection: false, // Restricts shapes to simple polygons
       drawError: {
-        color: '#e1e100', // Color the shape will turn when intersects 
-        message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect 
+        color: '#e1e100', // Color the shape will turn when intersects
+        message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
       }
     },
-    circle: false, // Turns off this drawing tool 
+    circle: false, // Turns off this drawing tool
     rectangle: true,
     marker: false
   },
   edit: {
-    featureGroup: editableLayers, //REQUIRED!! 
+    featureGroup: editableLayers, //REQUIRED!!
     remove: true
   }
 });
@@ -245,12 +250,12 @@ map.on(L.Draw.Event.DELETED, function(e) {
 
 
 
-//map.on('click', function(e) {        
+//map.on('click', function(e) {
 //        var popLocation= e.latlng;
 //        var popup = L.popup()
 //        .setLatLng(popLocation)
 //        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-//        .openOn(map);        
+//        .openOn(map);
 //    });
 
 

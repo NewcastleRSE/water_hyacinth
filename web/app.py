@@ -22,21 +22,17 @@ def index():
 def serve_assets(filename):
     return send_from_directory('assets', filename)
 
-# 1) Instead of using the global logging directly, define a function to store important messages:
 def create_log():
     return {
         "messages": []
     }
 
 def log_message(log_store, msg):
-    # Actually log
     logging.info(msg)
-    # Also store it in our list
     log_store["messages"].append(msg)
 
 @app.route('/search', methods=['POST'])
 def search():
-    # This object holds all messages we want to relay back to front-end:
     log_store = create_log()
 
     # Parse input JSON
@@ -90,6 +86,8 @@ def search():
             f"Attributes/OData.CSC.DoubleAttribute/any(att:att/Name eq 'cloudCover' "
             f"and att/OData.CSC.DoubleAttribute/Value lt 80.00)"
         )
+
+        print("Constructed query:", filter_query)
 
         # 3. Make request
         log_message(log_store, "Sending query to Copernicus...")

@@ -150,6 +150,8 @@ const baseMaps = {
 L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
 
 // Search functionality
+// ... inside script.js
+
 async function handleSearch(event) {
   event.preventDefault();
 
@@ -161,15 +163,15 @@ async function handleSearch(event) {
   const searchStatus = document.getElementById('search-status');
   const form = document.getElementById('search-form');
 
-  // Show loading state
+  // Show loading spinner
   searchStatus.style.display = 'block';
   form.querySelector('button').disabled = true;
 
   try {
-    const response = await fetch('http://localhost:5000/search', {
+    const response = await fetch('http://localhost:63342/search', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         start_date: startDate,
@@ -180,15 +182,28 @@ async function handleSearch(event) {
 
     const result = await response.json();
 
+    // We can display logs on the page in a <div> or <pre>:
+    const logContainer = document.getElementById('log-container');
+    if (!logContainer) {
+      console.warn("No element with id='log-container' found in HTML.");
+    }
+
     if (result.status === 'success') {
       alert('Data downloaded successfully!');
+      if (logContainer && result.logs) {
+        logContainer.innerText = result.logs.join('\n');
+      }
     } else {
       alert(`Error: ${result.message}`);
+      if (logContainer && result.logs) {
+        logContainer.innerText = result.logs.join('\n');
+      }
     }
   } catch (error) {
     alert('Error connecting to server');
     console.error('Error:', error);
   } finally {
+    // Hide loading spinner
     searchStatus.style.display = 'none';
     form.querySelector('button').disabled = false;
   }

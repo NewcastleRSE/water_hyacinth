@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="../static/style.css"/>
     <title>Invasive Water Hyacinth Project | Newcastle University</title>
 </head>
 <body>
 <!-- NAV BAR -->
 <div id="navbar"
-     style="position: absolute; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #2c3e50; color: white; padding: 10px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: space-between; box-sizing: border-box;">
+     style="position: absolute; top: 0; left: 0; width: 100%; z-index: 1000; background-color: #2c3e50; color: white; padding: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: space-between; box-sizing: border-box;">
     <!-- Logo and Title Section -->
     <div style="display: flex; align-items: center;">
         <img src="../assets/ncl-logo.svg" alt="Logo" style="height: 40px; margin-right: 20px;"/>
@@ -67,6 +67,10 @@
     </div>
 </div>
 
+<div id="log-container" style="white-space: pre; background: #eee; padding: 10px; margin-top: 10px;">
+    <!-- Logs will go here after we get the response -->
+</div>
+
 <!-- SLIDER -->
 <div id="slider-container"
      style="position: absolute; top: 75px; right: 10px; z-index: 1000; background-color: white; padding: 10px; border-radius: 8px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);">
@@ -98,6 +102,6 @@
 <script src='https://cdn.jsdelivr.net/gh/Leaflet/Leaflet.Editable@1.2.0/src/Leaflet.Editable.js'></script>
 <script src='https://openlayers.org/api/OpenLayers.js'></script>
 <div id="map"></div>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="../static/script.js"></script>
 </body>
 </html>
